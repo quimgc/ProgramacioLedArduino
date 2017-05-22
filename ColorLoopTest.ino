@@ -12,6 +12,12 @@
 //Per indicar a quin port està connectat la tira de led. En aquest cas al port 5.
 MeRGBLed led(PORT_5);
 
+/* Aquesta variable s'utilitza per la funció aleatori
+ *  Per saber quan un numero és parell o imparell.
+ *  S'utilitza per saber quan s'ha d'il·luminar.
+
+*/
+
 int num=0;
 
 
@@ -105,6 +111,8 @@ while(vegades!=0){
  }
  
   delay(100);
+
+  //Amb aquesta condicio el que s'aconsegueix es que cada cop s'encengui una llum diferent.
   if(num==0){
     num=1;
   }else{
