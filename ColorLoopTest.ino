@@ -1,37 +1,36 @@
 /**
    \par Copyright (C), 2012-2016, MakeBlock
    @file    ColorLoopTest.ino
-   @author  MakeBlock
+   @author  Quim González Colat
    @version V1.0.0
    @date    2015/09/02
-   @brief   Description: this file is sample code for RGB LED, It used for random color change
+   @brief   Codi Programació Arduino
 
-   Function List:
-   1. bool MeRGBLed::setColorAt(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
-   2. void MeRGBLed::show()
-   \par History:
-   <pre>
-   <Author>     <Time>        <Version>      <Descr>
-   Mark Yan     2015/09/02    1.0.0          rebuild the old lib
-   </pre>
 */
 #include "MeOrion.h"
 
 //Per indicar a quin port està connectat la tira de led. En aquest cas al port 5.
 MeRGBLed led(PORT_5);
 
-int cont=0;
 int num=0;
 
 
 void setup() {
+  
+  //Crido la funció apagarLlums() per apagar tots els llums de la tira de led;
+  apagarLlums();
+
+  //Crido la funció inici() per recorrer 4 cops la matriu de led;
   inici();
 }
 
 void loop() {
- 
+
+ //crido la funció aleatori per fer l'efecte intermitent n vegades.
 aleatori();
 
+
+//apago els llums;
 apagarLlums();
 
 //faig una pausa de 5 minuts.
@@ -39,12 +38,17 @@ delay(300000);
 }
 
 
+/*El que es fa amb aquesta funció és un bucle que es repeteix cont vegades
+ * i al seu interior hi ha dos bucles, un que va al incrementat i l'altre que va decrementant.
+ * Amb això s'aconsegueix un efecte visual amb que la llum va de banda a banda. 
+ * Quan cont = 4, es fa una pausa de 1 segon i s'apaguen els llums.
 
-
+*/
 void inici() {
   float color=0;
-  //int compt=0;
   
+  //Serveix per contar quants cops s'ha d'executar.
+  int cont=0;
   while (cont!=4) {
 
     for (int i=0; i < 15; i++) {
@@ -55,7 +59,7 @@ void inici() {
     }
    
 
-    for (int i = 15; i > 0; i--) {
+    for (int i = 15; i >=0; i--) {
       color=color-16.5;
       led.setColorAt(i, color, 0, 0);
       led.show();
@@ -67,18 +71,25 @@ void inici() {
 cont++;
   }
   delay(1000);
-  cont=0;
-  apagarLlums();
   
 }
 
-
+// recorro un bucle per apagar tots els llums de la matriu.
 void apagarLlums(){
  for (int i=0; i<15; i++){
   led.setColorAt(i,0,0,0);
   led.show();
  }
 }
+
+
+/* Amb aquesta funció s'agafa un número random entre 1 i 100
+ *  i es repeteix el bucle random vegades.
+ *  
+ *  Amb aquest bucle el que s'aconsegueix és un efecte visual parpadejant amb colors aleatoris
+ *  i fent un efecte amb que s'encen una si, una no. 
+*/
+
 
 void aleatori(){
 int vegades= random(1,100);
