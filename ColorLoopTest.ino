@@ -113,6 +113,7 @@ while(vegades!=0){
   delay(100);
 
   //Amb aquesta condicio el que s'aconsegueix es que cada cop s'encengui una llum diferent.
+  //Quan num=0 s’encendran els led parell, quan val 1 s’encendran els imparells.
   if(num==0){
     num=1;
   }else{
